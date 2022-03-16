@@ -1,3 +1,9 @@
+/**
+* Copyright (c) 2022 Pouya P. Niaz
+* https://github.com/pniaz20/Benchmarker
+* This github repository is shared under the MIT license.
+*/
+
 #pragma once
 
 #include <iostream>
@@ -16,51 +22,51 @@ using namespace std;
 class Benchmarker {
 public:
 	/**
-	Default constructor for Benchmarker class. It by default implies a singular benchmarking process, without looped repetition. 
+	Default constructor for Benchmarker class. It by default implies a singular benchmarking process, without looped repetition.
 	*/
 	Benchmarker();
 	/**
-	* Constructor for Benchmarking class. The input is number of repetitions of the loop for benchmarking. 
-	* Note that this class does not automatically run a for loop, you have to do it yourself. 
+	* Constructor for Benchmarking class. The input is number of repetitions of the loop for benchmarking.
+	* Note that this class does not automatically run a for loop, you have to do it yourself.
 	* Also note that this class does not undersand whether or not your for loop will also run the same number of times as the specified count.
 	* @param unsigned long numrept: number of repetitions you will employ in the for loop.
 	*/
 	Benchmarker(unsigned long numrepts);
 	/**
-	Starts the benchmarking clock for the current benchmarking instance, within the loop. 
-	Note that if the number of repetitions is more than 1 (singular benchmarking) then 
-	begin() must be called immediately before the for loop, in order to initiate the benchmarking process. 
+	Starts the benchmarking clock for the current benchmarking instance, within the loop.
+	Note that if the number of repetitions is more than 1 (singular benchmarking) then
+	begin() must be called immediately before the for loop, in order to initiate the benchmarking process.
 	Similar to the tic function of matlab.
 	*/
 	void tic();
 	/**
 	Stops the benchmarking clock for the current benchmarking instance, within the for loop.
-	Note that tic() must be called before this function, inside the for loop of repetitions. 
+	Note that tic() must be called before this function, inside the for loop of repetitions.
 	Also note that this function does not terminate benchmarking, it simply stamps the time passed since tic() for the current loop.
 	*/
 	void toc();
 	/**
-	Initiates the benchmarking process. This method must be called immediately before the for loop that runs the repetitions. 
+	Initiates the benchmarking process. This method must be called immediately before the for loop that runs the repetitions.
 	For singular benchmarking processes (number of repetitions = 1), this function is the same as tic().
 	*/
 	void begin();
 	/**
-	Terminates the benchmarking process. This method must be called immediately after the for loop that runs the repetitions. 
+	Terminates the benchmarking process. This method must be called immediately after the for loop that runs the repetitions.
 	For singular benchmarking processes (number of repetitions = 1), this function is the same as toc().
 	*/
 	void terminate();
 	/**
-	* Get the duration of the singular benchmarking process, after it is complete. 
+	* Get the duration of the singular benchmarking process, after it is complete.
 	* Note that this function does not work for repetitive benchmarking processes (number of repetitions > 1).
 	* @param unit of measurement: SEC, MILLISEC, MICROSEC, NANOSEC. Default is SEC.
 	* @return duration, in the spcified units
 	*/
 	double getSingleDur(int ident = SEC);
 	/**
-	* Get the durations of the repetitive benchmarking process, after it is complete. 
-	* the output will have the format {minimum, average, maximum, total} where min, avg and max are for whatever was being benchmarked 
-	* between tic() and toc() in the for loop, and total is the entire duration of the for loop itself, i.e. the whole duration of the 
-	* benchmarking process. 
+	* Get the durations of the repetitive benchmarking process, after it is complete.
+	* the output will have the format {minimum, average, maximum, total} where min, avg and max are for whatever was being benchmarked
+	* between tic() and toc() in the for loop, and total is the entire duration of the for loop itself, i.e. the whole duration of the
+	* benchmarking process.
 	* Note that this function must only be called after terminate() has been called and benchmarking has finished.
 	* @param unit of measurement: SEC, MILLISEC, MICROSEC, NANOSEC. Default is SEC.
 	* @return vector<double>(4) durations, in the format {min, avg, max, total}.
@@ -75,6 +81,12 @@ public:
 	* @param unit of measurement: SEC, MILLISEC, MICROSEC, NANOSEC. Default is SEC.
 	*/
 	void report(int ident = SEC);
+	/**
+	* Sets the number of repetitions after they are done. Useful when numbr of repetitions is not known apriori.
+	* Note that this function should be called directly before terminate(). Otherwise it makes no sense.
+	* @param unsigned long numrept: Number of repetitions
+	*/
+	void setNumRepetitions(unsigned long numrept);
 
 private:
 
@@ -280,4 +292,8 @@ void Benchmarker::report(int ident) {
 	cout << endl;
 	cout << "This entire bechmarking process took  " << fixed << durt << " seconds." << endl;
 	cout << "-----------------------------------------------------------------------------------" << endl;
+}
+
+void Benchmarker::setNumRepetitions(unsigned long numrept) {
+	numRepetitions = numrept;
 }
