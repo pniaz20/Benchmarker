@@ -27,7 +27,6 @@ int main()
 {
     cout << "Hello World!\n";
     
-    
     /*************************************
     * Performing a singular benchmarking without repetition
     **************************************/

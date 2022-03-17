@@ -1,3 +1,2 @@
-﻿  main.cpp
-D:\REPO\Benchmarker\Benchmarker\main.cpp(17,52): warning C4244: '=': conversion from 'long double' to 'size_t', possible loss of data
+﻿  func1.cpp
   Benchmarker.vcxproj -> D:\REPO\Benchmarker\x64\Debug\Benchmarker.exe
